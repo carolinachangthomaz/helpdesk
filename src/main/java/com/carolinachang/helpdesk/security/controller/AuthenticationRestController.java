@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.carolinachang.helpdesk.entity.User;
-import com.carolinachang.helpdesk.security.jwt.JwtAuthenticatioRequest;
+import com.carolinachang.helpdesk.security.jwt.JwtAuthenticationRequest;
 import com.carolinachang.helpdesk.security.jwt.JwtTokenUtil;
 import com.carolinachang.helpdesk.security.model.CurrentUser;
 import com.carolinachang.helpdesk.service.UserService;
@@ -40,7 +40,7 @@ public class AuthenticationRestController {
 	
 	
 	@PostMapping(value="/login")
-	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticatioRequest authenticatioRequest) throws Exception{
+	public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtAuthenticationRequest authenticatioRequest) throws Exception{
 		final Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(
 						authenticatioRequest.getEmail(),

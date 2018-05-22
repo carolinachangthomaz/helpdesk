@@ -2,7 +2,7 @@ package com.carolinachang.helpdesk.security.jwt;
 
 import java.io.Serializable;
 
-public class JwtAuthenticatioRequest implements Serializable{
+public class JwtAuthenticationRequest implements Serializable{
 
 	private static final long serialVersionUID = 1L;
     
@@ -11,7 +11,10 @@ public class JwtAuthenticatioRequest implements Serializable{
 	
 	
 	
-	public JwtAuthenticatioRequest(String email, String password) {
+	public JwtAuthenticationRequest() {
+	}
+	
+	public JwtAuthenticationRequest(String email, String password) {
 		this.email = email;
 		this.password = password;
 	}
