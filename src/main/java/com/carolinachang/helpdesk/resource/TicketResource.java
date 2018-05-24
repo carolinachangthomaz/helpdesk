@@ -26,7 +26,7 @@ public class TicketResource implements TicketService{
 	
 	@Override
 	public Ticket createOrUpdate(Ticket ticket) {
-		return this.createOrUpdate(ticket);
+		return this.ticketRepository.save(ticket);
 	}
 
 	@Override
