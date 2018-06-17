@@ -164,7 +164,7 @@ public class TicketController {
 	
 	@GetMapping(value="{page}/{count}")
 	@PreAuthorize("hasAnyRole('CUSTOMER' , 'TECNICIAN')")
-	public ResponseEntity<Response<Page<Ticket>>> findAll(HttpServletRequest request,@PathVariable int page, @PathVariable int count){
+	public ResponseEntity<Response<Page<Ticket>>> findAll(HttpServletRequest request,@PathVariable("page") int page, @PathVariable("count") int count){
 		Response<Page<Ticket>> response = new Response<Page<Ticket>>();
 		Page<Ticket> tickets = null;
 		User user = userFromRequest(request);
@@ -177,19 +177,19 @@ public class TicketController {
 		return ResponseEntity.ok(response);
 	}
 	
-	@GetMapping(value="{page}/{count}/{numero}/{titulo}/{status}/{prioridade}/{designado}}")
+	@GetMapping(value="{page}/{count}/{numero}/{titulo}/{status}/{prioridade}/{designado}")
 	@PreAuthorize("hasAnyRole('CUSTOMER' , 'TECNICIAN')")
 	public ResponseEntity<Response<Page<Ticket>>> findByParamsl(HttpServletRequest request,
-			                                                    @PathVariable int page,
-			                                                    @PathVariable int count,
-			                                                    @PathVariable Integer numero,
-			                                                    @PathVariable String titulo,
-			                                                    @PathVariable String status,
-			                                                    @PathVariable String prioridade,
-			                                                    @PathVariable boolean designado){
+			                                                    @PathVariable("page") int page,
+			                                                    @PathVariable("count") int count,
+			                                                    @PathVariable("numero") Integer numero,
+			                                                    @PathVariable("titulo") String titulo,
+			                                                    @PathVariable("status") String status,
+			                                                    @PathVariable("prioridade") String prioridade,
+			                                                    @PathVariable("designado") boolean designado){
 		titulo = titulo.equals("uninformed") ? "" : titulo;
-		status = titulo.equals("uninformed") ? "" : status;
-		prioridade = titulo.equals("uninformed") ? "" : prioridade;
+		status = status.equals("uninformed") ? "" : status;
+		prioridade = prioridade.equals("uninformed") ? "" : prioridade;
 		
 		Response<Page<Ticket>> response = new Response<Page<Ticket>>();
 		Page<Ticket> tickets = null;
@@ -212,7 +212,7 @@ public class TicketController {
 		return ResponseEntity.ok(response);
 	}
 	
-	@GetMapping(value="{id}/{status}")
+	@PutMapping(value="{id}/{status}")
 	@PreAuthorize("hasAnyRole('CUSTOMER' , 'TECNICIAN')")
 	public ResponseEntity<Response<Ticket>> alterarStatus(HttpServletRequest request,
 			                                                   @PathVariable String id,
