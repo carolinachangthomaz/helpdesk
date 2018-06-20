@@ -188,9 +188,9 @@ public class TicketController {
 			                                                    @RequestParam("status") String status,
 			                                                    @RequestParam("prioridade") String prioridade,
 			                                                    @RequestParam("designado") boolean designado){
-		titulo = titulo.equals("") ? null : titulo;
-		status = status.equals("") ? null : status;
-		prioridade = prioridade.equals("") ? null : prioridade;
+		titulo = titulo.equals("uninformed") ? "" : titulo;
+		status = status.equals("uninformed") ? "" : status;
+		prioridade = prioridade.equals("uninformed") ? "" : prioridade;
 		
 		Response<Page<Ticket>> response = new Response<Page<Ticket>>();
 		Page<Ticket> tickets = null;
