@@ -66,14 +66,14 @@ public class TicketResource implements TicketService{
 	@Override
 	public Page<Ticket> findByParametros(int page, int count, String title, String status, String priority) {
 		PageRequest pageRequest = PageRequest.of(page, count);
-		return this.ticketRepository.findByTituloIgnoreCaseContainingAndStatusAndPrioridadeOrderByDateDesc(title, status, priority, pageRequest);
+		return this.ticketRepository.findByTituloIgnoreCaseContainingAndStatusContainingAndPrioridadeContainingOrderByDateDesc(title, status, priority, pageRequest);
 	}
 
 	@Override
 	public Page<Ticket> findByParametrosAndCurrentUser(int page, int count, String title, String status,
 			String priority, String userId) {
 		PageRequest pageRequest = PageRequest.of(page, count);
-		return this.ticketRepository.findByTituloIgnoreCaseContainingAndStatusAndPrioridadeAndUsuarioIdOrderByDateDesc(title, status, priority,userId, pageRequest);
+		return this.ticketRepository.findByTituloIgnoreCaseContainingAndStatusContainingAndPrioridadeContainingAndUsuarioIdOrderByDateDesc(title, status, priority,userId, pageRequest);
 	}
 
 	@Override
@@ -91,7 +91,7 @@ public class TicketResource implements TicketService{
 	public Page<Ticket> findByParametrosAndUsuarioDesignado(int page, int count, String title, String status,
 			String priority, String usuarioDesignado) {
 		PageRequest pageRequest = PageRequest.of(page, count);
-		return this.ticketRepository.findByTituloIgnoreCaseContainingAndStatusAndPrioridadeAndAssinaturaUsuarioIdOrderByDateDesc(title, status, priority, usuarioDesignado,pageRequest);
+		return this.ticketRepository.findByTituloIgnoreCaseContainingAndStatusContainingAndPrioridadeContainingAndAssinaturaUsuarioIdOrderByDateDesc(title, status, priority, usuarioDesignado,pageRequest);
 	}
 
 }
