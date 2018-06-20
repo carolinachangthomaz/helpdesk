@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.carolinachang.helpdesk.dto.Sumario;
@@ -177,25 +178,26 @@ public class TicketController {
 		return ResponseEntity.ok(response);
 	}
 	
-	@GetMapping(value="{page}/{count}/{numero}/{titulo}/{status}/{prioridade}/{designado}")
+	@GetMapping()
 	@PreAuthorize("hasAnyRole('CUSTOMER' , 'TECNICIAN')")
 	public ResponseEntity<Response<Page<Ticket>>> findByParamsl(HttpServletRequest request,
-			                                                    @PathVariable("page") int page,
-			                                                    @PathVariable("count") int count,
-			                                                    @PathVariable("numero") Integer numero,
-			                                                    @PathVariable("titulo") String titulo,
-			                                                    @PathVariable("status") String status,
-			                                                    @PathVariable("prioridade") String prioridade,
-			                                                    @PathVariable("designado") boolean designado){
-		titulo = titulo.equals("uninformed") ? "" : titulo;
-		status = status.equals("uninformed") ? "" : status;
-		prioridade = prioridade.equals("uninformed") ? "" : prioridade;
+			                                                    @RequestParam(value="page",defaultValue="0") int page,
+			                                                    @RequestParam("count") int count,
+			                                                    @RequestParam(value="numero") String numero,
+			                                                    @RequestParam("titulo") String titulo,
+			                                                    @RequestParam("status") String status,
+			                                                    @RequestParam("prioridade") String prioridade,
+			                                                    @RequestParam("designado") boolean designado){
+		titulo = titulo.equals("") ? null : titulo;
+		status = status.equals("") ? null : status;
+		prioridade = prioridade.equals("") ? null : prioridade;
 		
 		Response<Page<Ticket>> response = new Response<Page<Ticket>>();
 		Page<Ticket> tickets = null;
 		
-		if(numero > 0) {
-			tickets = ticketService.findByNumber(page, count, numero);
+		if(!numero.equals("null")) {
+			Integer num = Integer.parseInt(numero);
+			tickets = ticketService.findByNumber(page, count, num);
 		}else {
 			User user = userFromRequest(request);
 			if(user.getProFile().equals(ProFileEnum.ROLE_TECNICIAN)) {
